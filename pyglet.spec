@@ -2,7 +2,7 @@
 
 Name:           pyglet
 Version:        1.1.2
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        A cross-platform windowing and multimedia library for Python
 Group:          Development/Libraries
 License:        BSD
@@ -115,6 +115,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/%{name}
 
 %changelog
+* Tue Feb 03 2009 Orcan Ogetbil <oget [DOT] fedora [AT] gmail [DOT] com> 1.1.2-6
+- Fix lib-loading-order patch
+
 * Fri Jan 16 2009 Orcan Ogetbil <oget [DOT] fedora [AT] gmail [DOT] com> 1.1.2-5
 - Add Requires: avbin libGL libGLU
 

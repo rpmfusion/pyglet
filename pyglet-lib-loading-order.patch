@@ -1,44 +1,14 @@
 diff -rupN old/pyglet-1.1.2/pyglet/lib.py new/pyglet-1.1.2/pyglet/lib.py
 --- old/pyglet-1.1.2/pyglet/lib.py	2008-08-26 06:44:55.000000000 -0400
-+++ new/pyglet-1.1.2/pyglet/lib.py	2009-01-15 22:27:59.000000000 -0500
-@@ -101,24 +101,24 @@ class LibraryLoader(object):
++++ new/pyglet-1.1.2/pyglet/lib.py	2009-02-03 12:04:12.000000000 -0500
+@@ -95,8 +95,8 @@ class LibraryLoader(object):
+         elif type(platform_names) is tuple:
+             platform_names = list(platform_names)
+ 
+-        if self.platform == 'linux2':
+-            platform_names.extend(['lib%s.so' % n for n in names])
++        #if self.platform == 'linux2':
++        #    platform_names.extend(['lib%s.so' % n for n in names])
+ 
          platform_names.extend(names)
          for name in platform_names:
-             try:
--                lib = ctypes.cdll.LoadLibrary(name)
--                if _debug_lib:
--                    print name
--                if _debug_trace:
--                    lib = _TraceLibrary(lib)
--                return lib
--            except OSError:
-                 path = self.find_library(name)
-                 if path:
--                    try:
--                        lib = ctypes.cdll.LoadLibrary(path)
--                        if _debug_lib:
--                            print path
--                        if _debug_trace:
--                            lib = _TraceLibrary(lib)
--                        return lib
--                    except OSError:
--                        pass
-+                    lib = ctypes.cdll.LoadLibrary(path)
-+                    if _debug_lib:
-+                        print path
-+                    if _debug_trace:
-+                        lib = _TraceLibrary(lib)
-+                    return lib
-+            except OSError:
-+                try:
-+                    lib = ctypes.cdll.LoadLibrary(name)
-+                    if _debug_lib:
-+                        print name
-+                    if _debug_trace:
-+                        lib = _TraceLibrary(lib)
-+                    return lib
-+                except OSError:
-+                    pass
-         raise ImportError('Library "%s" not found.' % names[0])
- 
-     find_library = lambda self, name: ctypes.util.find_library(name)

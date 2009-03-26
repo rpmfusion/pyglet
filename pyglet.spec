@@ -1,8 +1,8 @@
-%{!?python_sitelib: %define python_sitelib %(%{__python} -c "from distutils.sysconfig import get_python_lib; print get_python_lib()")}
+%{!?python_sitelib: %global python_sitelib %(%{__python} -c "from distutils.sysconfig import get_python_lib; print get_python_lib()")}
 
 Name:           pyglet
-Version:        1.1.2
-Release:        6%{?dist}
+Version:        1.1.3
+Release:        1%{?dist}
 Summary:        A cross-platform windowing and multimedia library for Python
 Group:          Development/Libraries
 License:        BSD
@@ -115,6 +115,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/%{name}
 
 %changelog
+* Thu Mar 26 2009 Orcan Ogetbil <oget [DOT] fedora [AT] gmail [DOT] com> 1.1.3-1
+- update to 1.1.3
+
 * Tue Feb 03 2009 Orcan Ogetbil <oget [DOT] fedora [AT] gmail [DOT] com> 1.1.2-6
 - Fix lib-loading-order patch
 
@@ -125,13 +128,13 @@ rm -rf $RPM_BUILD_ROOT
 - Patch to load the correct (GL*) libraries
 - Drop mesa-libGL, mesa-libGLU dependencies
 
-* Mon Dec 01 2008 Orcan Ogetbil <orcanbahri [AT] yahoo [DOT] com> 1.1.2-3
+* Mon Dec 01 2008 Orcan Ogetbil <oget [DOT] fedora [AT] gmail [DOT] com> 1.1.2-3
 - Updated description.
 - Some minor improvements in the SPEC file.
 
-* Sun Nov 23 2008 Orcan Ogetbil <orcanbahri [AT] yahoo [DOT] com> 1.1.2-2
+* Sun Nov 23 2008 Orcan Ogetbil <oget [DOT] fedora [AT] gmail [DOT] com> 1.1.2-2
 - Removed the extra font dependency (reverting to the default system font).
 - Added Requires.
 
-* Sun Nov 23 2008 Orcan Ogetbil <orcanbahri [AT] yahoo [DOT] com> 1.1.2-1
+* Sun Nov 23 2008 Orcan Ogetbil <oget [DOT] fedora [AT] gmail [DOT] com> 1.1.2-1
 - Initial build.

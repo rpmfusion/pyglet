@@ -1,7 +1,7 @@
 %{!?python_sitelib: %global python_sitelib %(%{__python} -c "from distutils.sysconfig import get_python_lib; print get_python_lib()")}
 
 Name:           pyglet
-Version:        1.1.3
+Version:        1.1.4
 Release:        1%{?dist}
 Summary:        A cross-platform windowing and multimedia library for Python
 Group:          Development/Libraries
@@ -18,8 +18,13 @@ BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:      noarch
 BuildRequires:  python-devel
 BuildRequires:  python-setuptools-devel
-Requires:       gdk-pixbuf, gtk2, openal 
-Requires:       avbin libGL libGLU
+
+Requires:       avbin
+Requires:       gdk-pixbuf
+Requires:       gtk2
+Requires:       libGL
+Requires:       libGLU
+Requires:       openal 
 
 %description
 Pyglet provides an object-oriented programming interface for developing
@@ -60,28 +65,10 @@ and Xvid. This package provides API documentation of pyglet.
 
 %patch0 -p2 -b .loading.order
 
-# Fixes for various permission and EOL encoding problems:
-# Everything is reported to upstream:
-# http://code.google.com/p/pyglet/issues/detail?id=368
-chmod +x tools/*.py
-chmod +x examples/*.py
-chmod +x examples/soundspace/soundspace.py
-sed 's|#!/usr/bin/env python|#|' examples/soundspace/reader.py > reader.py.tmp
-touch -r examples/soundspace/reader.py reader.py.tmp
-mv -f reader.py.tmp examples/soundspace/reader.py
-chmod 644 CHANGELOG NOTICE
-sed 's/\r//' NOTICE > NOTICE.tmp
-touch -r NOTICE NOTICE.tmp
-mv -f NOTICE.tmp NOTICE
-chmod -x doc/html/programming_guide/*.py
-
-# Remove the preshipped font (it will use the saved_by_zero.ttf font if 
-# larabie-fonts-uncommon is installed)
-rm examples/astraea/res/saved_by_zero.ttf
-sed "s@\(resource.add_font('saved_by_zero.ttf')\)@try: \1\nexcept: pass@" examples/astraea/astraea.py > astrea.py.tmp
-touch -r examples/astraea/astraea.py astrea.py.tmp
-mv -f astrea.py.tmp examples/astraea/astraea.py
-chmod +x examples/astraea/astraea.py
+for i in doc/html/*/*.py; do
+    sed -i '\|/usr/bin/env python|d' $i
+    chmod -x $i
+done
 
 %build
 echo "Nothing to build."
@@ -115,6 +102,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/%{name}
 
 %changelog
+* Thu Feb 04 2010 Orcan Ogetbil <oget [DOT] fedora [AT] gmail [DOT] com> 1.1.4-1
+- update to 1.1.4
+
 * Thu Mar 26 2009 Orcan Ogetbil <oget [DOT] fedora [AT] gmail [DOT] com> 1.1.3-1
 - update to 1.1.3
 
